@@ -1,0 +1,40 @@
+name: Store Dist Artifact
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+jobs:
+  upload-dist:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: npm ci
+      - name: Rebuild the dist/ directory
+        run: npm run build
+      - name: Store Dist
+        uses: actions/upload-artifact@v3
+        with:
+          name: "dist"
+          path: "dist/"
+          retention-days: 3
+  check-dist:
+    needs: [ 'upload-dist' ]
+    if: always()
+    runs-on: ubuntu-20.04
+    outputs:
+      has-dist: ${{ steps.check_dist.outputs.exists }}
+    steps:
+      - uses: xSAVIKx/artifact-exists-action@v0
+        id: check_dist
+        with:
+          name: 'dist'
