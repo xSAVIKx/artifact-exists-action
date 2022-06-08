@@ -19,6 +19,8 @@ jobs:
           node-version: 16
       - name: Install dependencies
         run: npm ci
+      - name: Install ncc
+        run: npm install ncc --global
       - name: Rebuild the dist/ directory
         run: npm run build
       - name: Store Dist
