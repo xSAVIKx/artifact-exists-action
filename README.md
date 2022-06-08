@@ -1,18 +1,14 @@
 # Artifact Exists Action
 
-This actions checks if a particular artifact exists and is available in the worfklow.
+This action checks if an artifact exists and is available in the workflow.
 
 ## Inputs
 
-## `name`
-
-**Required** The name of the artifact to be checked.
+* `name`(**Required**) - The name of the artifact to be checked.
 
 ## Outputs
 
-## `exists`
-
-Determines if the artifact is present or not.
+* `exists` - Determines if the artifact with the provided name is present.
 
 ## Example usage
 
