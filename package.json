@@ -1,7 +1,6 @@
 {
   "name": "artifact-exists-action",
   "version": "0.1.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,5 +15,13 @@
   "engines": {
     "node": ">=16.15.1",
     "npm": ">=8.11.0"
-  }
+  },
+  "devDependencies": {
+    "prettier": "^2.6.2"
+  },
+  "dependencies": {
+    "@actions/artifact": "^1.1.0",
+    "@actions/core": "^1.8.2"
+  },
+  "description": "Check existence of an artifact uploaded in the workflow by the upload-artifact action"
 }
