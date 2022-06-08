@@ -1,0 +1,13 @@
+name: 'Check artifact existence'
+description: 'Check existence of an artifact uploaded in the workflow by the upload-artifact action'
+author: 'Yurii Serhiichuk'
+inputs:
+  name:
+    description: 'Artifact name'
+    required: false
+  path:
+    description: 'Destination path'
+    required: false
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
