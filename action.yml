@@ -4,10 +4,7 @@ author: 'Yurii Serhiichuk'
 inputs:
   name:
     description: 'Artifact name'
-    required: false
-  path:
-    description: 'Destination path'
-    required: false
+    required: true
 runs:
   using: 'node16'
   main: 'dist/index.js'
