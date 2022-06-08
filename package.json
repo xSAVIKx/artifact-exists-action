@@ -6,7 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "keywords": [
+    "artifact",
+    "actions",
+    "exists"
+  ],
+  "author": "Yurii Serhiichuk",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.15.1",
+    "npm": ">=8.11.0"
+  }
 }
