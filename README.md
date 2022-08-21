@@ -13,7 +13,7 @@ This action checks if an artifact exists and is available in the workflow.
 ## Example usage
 
 ```yaml
-uses: actions/xSAVIKx/artifact-exists-action@v0
+uses: xSAVIKx/artifact-exists-action@v0
 with:
   name: 'coverage-artifact'
 ```
