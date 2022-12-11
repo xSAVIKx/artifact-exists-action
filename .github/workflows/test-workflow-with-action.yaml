@@ -1,0 +1,29 @@
+name: Test Workflow with our Action
+
+on:
+  workflow_dispatch:
+jobs:
+  run-action:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Store Workflow
+        uses: actions/upload-artifact@v3
+        with:
+          name: "test-worklow"
+          path: ".github/workflows/test-workflow-with-action.yaml"
+          retention-days: 3
+      - uses: xSAVIKx/artifact-exists-action@v0
+        id: "check_workflow_exists"
+        with:
+          name: 'test-workflow'
+      - uses: xSAVIKx/artifact-exists-action@v0
+        id: "check_non_existing"
+        with:
+          name: 'non-existing-artifact'
+      - name: "Echo if artifact exists"
+        run: echo "::notice::Artifact in-deed exists."
+        if: "${{ steps.check_workflow_exists.outputs.exists }}"
+      - name: "Echo if artifact does not exist"
+        run: echo "::notice::Artifact in-deed does not exist."
+        if: "${{ steps.check_non_existing.outputs.exists == false }}"
