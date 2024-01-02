@@ -16,11 +16,11 @@ jobs:
       - uses: xSAVIKx/artifact-exists-action@v0
         id: "check_workflow_exists"
         with:
-          name: 'test-workflow'
+          name: "test-workflow"
       - uses: xSAVIKx/artifact-exists-action@v0
         id: "check_non_existing"
         with:
-          name: 'non-existing-artifact'
+          name: "non-existing-artifact"
       - name: "Echo if artifact exists"
         run: echo "::notice::Artifact in-deed exists."
         if: "${{ steps.check_workflow_exists.outputs.exists }}"

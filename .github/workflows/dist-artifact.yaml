@@ -30,7 +30,7 @@ jobs:
           path: "dist/"
           retention-days: 3
   check-dist:
-    needs: [ 'upload-dist' ]
+    needs: ["upload-dist"]
     if: always()
     runs-on: ubuntu-22.04
     outputs:
@@ -39,4 +39,4 @@ jobs:
       - uses: xSAVIKx/artifact-exists-action@v0
         id: check_dist
         with:
-          name: 'dist'
+          name: "dist"
