@@ -17,7 +17,7 @@ jobs:
         id: "check_workflow_exists"
         with:
           name: "test-workflow"
-      - uses: xSAVIKx/artifact-exists-action@v0
+      - uses: "./"
         id: "check_non_existing"
         with:
           name: "non-existing-artifact"
