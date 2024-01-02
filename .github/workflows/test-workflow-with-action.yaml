@@ -13,7 +13,7 @@ jobs:
           name: "test-worklow"
           path: ".github/workflows/test-workflow-with-action.yaml"
           retention-days: 3
-      - uses: xSAVIKx/artifact-exists-action@v0
+      - uses: "./"
         id: "check_workflow_exists"
         with:
           name: "test-workflow"
