@@ -18,12 +18,12 @@
     "npm": ">=10.2.3"
   },
   "devDependencies": {
-    "prettier": "^3.1.1"
+    "prettier": "^3.1.1",
+    "@vercel/ncc": "^0.38.1"
   },
   "dependencies": {
     "@actions/artifact": "^2.0.0",
-    "@actions/core": "^1.10.1",
-    "ncc": "^0.3.6"
+    "@actions/core": "^1.10.1"
   },
   "description": "Check existence of an artifact uploaded in the workflow by the upload-artifact action"
 }
