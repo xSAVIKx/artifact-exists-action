@@ -16,10 +16,12 @@ jobs:
           path: ".github/workflows/test-workflow-with-action.yaml"
           retention-days: 3
       - uses: "./"
+        name: "Check artifact exists"
         id: "check_workflow_exists"
         with:
           name: "test-workflow"
       - uses: "./"
+        name: "Check artifact does not exist"
         id: "check_non_existing"
         with:
           name: "non-existing-artifact"

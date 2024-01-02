@@ -39,6 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: "./"
+        name: "Check dist exists"
         id: check_dist
         with:
           name: "dist"
