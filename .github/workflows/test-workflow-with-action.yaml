@@ -6,9 +6,9 @@ jobs:
   run-action:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Store Workflow
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: "test-worklow"
           path: ".github/workflows/test-workflow-with-action.yaml"
