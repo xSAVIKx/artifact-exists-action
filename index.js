@@ -4,6 +4,8 @@ const fs = require("fs");
 
 async function getArtifact(name) {
   try {
+    const allArtifacts = await artifactClient.listArtifacts();
+    core.warning(`AllArtifacts: ${JSON.stringify(allArtifacts)}`)
     const getArtifactResponse = await artifactClient.getArtifact(name);
     core.info(
         `Artifact ${getArtifactResponse.artifact.name} exists 
