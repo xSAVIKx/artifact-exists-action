@@ -27,7 +27,7 @@ jobs:
           name: "non-existing-artifact"
       - name: "Echo if artifact exists"
         run: echo "::notice::Artifact in-deed exists."
-        if: "${{ steps.check_workflow_exists.outputs.exists }}"
+        if: "${{ steps.check_workflow_exists.outputs.exists == 'true' }}"
       - name: "Echo if artifact does not exist"
         run: echo "::notice::Artifact in-deed does not exist."
         if: "${{ steps.check_non_existing.outputs.exists == 'false' }}"
