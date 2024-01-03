@@ -1,41 +1,30 @@
 const core = require("@actions/core");
-const artifactClient = require("@actions/artifact");
+const artifact = require("@actions/artifact");
 const fs = require("fs");
-
-async function getArtifact(name) {
-  try {
-    core.debug("Listing all artifacts.")
-    const allArtifacts = await artifactClient.listArtifacts();
-    core.warning(`AllArtifacts: ${JSON.stringify(allArtifacts)}`)
-    core.debug(`Retrieving artifact with name '${name}'.`)
-    const getArtifactResponse = await artifactClient.getArtifact(name);
-    core.info(
-        `Artifact ${getArtifactResponse.artifact.name} exists 
-        and has ID ${getArtifactResponse.artifact.id}.`,
-    );
-    return getArtifactResponse;
-  } catch (err) {
-    core.debug(`Error details: ${JSON.stringify(err)}`)
-    core.info(`Artifact ${name} does not exist.`);
-  }
-  return null;
-}
 
 async function run() {
   try {
     const name = core.getInput("name", { required: true });
-    const tempArtifactPath = fs.mkdtempSync("artifactExists") + `/${name}`;
+    const tempArtifactPath = fs.mkdtempSync("artifactExists-") + `/${name}`;
+    const artifactClient = artifact.create();
     // download a single artifact
     core.info(
-      `Starting download for ${name}. Temporary storing at ${tempArtifactPath} if exists.`,
+      `Starting download for ${name}. Temporary storing at ${tempArtifactPath} if exists.`
     );
-    let artifactResponse = await getArtifact(name);
-    if (artifactResponse == null && !name.endsWith(".zip")) {
-      artifactResponse = await getArtifact(`${name}.zip`);
-    }
-    if (artifactResponse != null) {
+    const downloadOptions = {
+      createArtifactFolder: false,
+    };
+    try {
+      const downloadResponse = await artifactClient.downloadArtifact(
+        name,
+        tempArtifactPath,
+        downloadOptions
+      );
+      core.info(`Artifact ${downloadResponse.artifactName} exists.`);
       core.setOutput("exists", true);
-    } else {
+    } catch (err) {
+      core.info(`Artifact ${name} does not exist or is not available.`);
+      core.debug(err);
       core.setOutput("exists", false);
     }
   } catch (err) {
