@@ -4,8 +4,10 @@ const fs = require("fs");
 
 async function getArtifact(name) {
   try {
+    core.debug("Listing all artifacts.")
     const allArtifacts = await artifactClient.listArtifacts();
     core.warning(`AllArtifacts: ${JSON.stringify(allArtifacts)}`)
+    core.debug(`Retrieving artifact with name '${name}'.`)
     const getArtifactResponse = await artifactClient.getArtifact(name);
     core.info(
         `Artifact ${getArtifactResponse.artifact.name} exists 
@@ -13,6 +15,7 @@ async function getArtifact(name) {
     );
     return getArtifactResponse;
   } catch (err) {
+    core.debug(`Error details: ${JSON.stringify(err)}`)
     core.info(`Artifact ${name} does not exist.`);
   }
   return null;
