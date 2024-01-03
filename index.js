@@ -11,12 +11,14 @@ async function run() {
       `Starting download for ${name}. Temporary storing at ${tempArtifactPath} if exists.`,
     );
     try {
-      const downloadResponse = await artifactClient.getArtifact(name);
+      const getArtifactResponse = await artifactClient.getArtifact(name);
+      core.debug(`getArtifactResponse=${JSON.stringify(getArtifactResponse)}`);
       core.info(
-        `Artifact ${downloadResponse.artifact.name} exists and has ID ${downloadResponse.artifact.id}.`,
+        `Artifact ${getArtifactResponse.artifact.name} exists and has ID ${getArtifactResponse.artifact.id}.`,
       );
       core.setOutput("exists", true);
     } catch (err) {
+      core.debug(`Error: ${JSON.stringify(err)}`);
       core.info(`Artifact ${name} does not exist.`);
       core.setOutput("exists", false);
     }
