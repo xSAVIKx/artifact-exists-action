@@ -2,6 +2,20 @@ const core = require("@actions/core");
 const artifactClient = require("@actions/artifact");
 const fs = require("fs");
 
+async function getArtifact(name) {
+  try {
+    const getArtifactResponse = await artifactClient.getArtifact(name);
+    core.info(
+        `Artifact ${getArtifactResponse.artifact.name} exists 
+        and has ID ${getArtifactResponse.artifact.id}.`,
+    );
+    return getArtifactResponse;
+  } catch (err) {
+    core.info(`Artifact ${name} does not exist.`);
+  }
+  return null;
+}
+
 async function run() {
   try {
     const name = core.getInput("name", { required: true });
@@ -10,16 +24,13 @@ async function run() {
     core.info(
       `Starting download for ${name}. Temporary storing at ${tempArtifactPath} if exists.`,
     );
-    try {
-      const getArtifactResponse = await artifactClient.getArtifact(name);
-      core.debug(`getArtifactResponse=${JSON.stringify(getArtifactResponse)}`);
-      core.info(
-        `Artifact ${getArtifactResponse.artifact.name} exists and has ID ${getArtifactResponse.artifact.id}.`,
-      );
+    let artifactResponse = await getArtifact(name);
+    if (artifactResponse == null && !name.endsWith(".zip")) {
+      artifactResponse = await getArtifact(`${name}.zip`);
+    }
+    if (artifactResponse != null) {
       core.setOutput("exists", true);
-    } catch (err) {
-      core.debug(`Error: ${JSON.stringify(err)}`);
-      core.info(`Artifact ${name} does not exist.`);
+    } else {
       core.setOutput("exists", false);
     }
   } catch (err) {
