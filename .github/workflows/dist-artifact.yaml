@@ -25,7 +25,7 @@ jobs:
       - name: Rebuild the dist/ directory
         run: npm run build
       - name: Store Dist
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: "dist"
           path: "dist/"

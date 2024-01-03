@@ -13,7 +13,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: "test-workflow"
-          path: ".github/workflows/test-workflow-with-action.yaml"
+          path: ".github/workflows/test-workflow-with-action-upload-v3.yaml"
           retention-days: 3
       - uses: "./"
         name: "Check artifact exists"
