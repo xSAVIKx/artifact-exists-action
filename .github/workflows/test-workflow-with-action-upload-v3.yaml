@@ -1,4 +1,4 @@
-name: Test Workflow with our Action
+name: Test Workflow with our Action and Upload Artifact v3
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Store Workflow
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: "test-workflow"
           path: ".github/workflows/test-workflow-with-action.yaml"
