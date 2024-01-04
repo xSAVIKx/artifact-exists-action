@@ -1,4 +1,4 @@
-name: Test Workflow with our Action and and Upload Artifact v4 (does not work)
+name: Test Workflow with our Action and Upload Artifact v4 (does not work)
 
 on:
   workflow_dispatch:
