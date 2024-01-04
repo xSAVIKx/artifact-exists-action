@@ -2,10 +2,8 @@ name: Test Workflow with our Action and and Upload Artifact v4 (does not work)
 
 on:
   workflow_dispatch:
-  pull_request:
-  push:
 jobs:
-  run-action:
+  run-local-action:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
@@ -13,7 +11,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: "test-workflow"
-          path: ".github/workflows/test-workflow-with-action-upload-v4.yaml"
+          path: ".github/workflows/test-workflow-with-action-upload-v3.yaml"
           retention-days: 3
       - uses: "./"
         name: "Check artifact exists"
@@ -25,9 +23,50 @@ jobs:
         id: "check_non_existing"
         with:
           name: "non-existing-artifact"
-      - name: "Echo if artifact exists"
+      - name: "Echo if artifact check_workflow_exists exists"
         run: echo "::notice::Artifact in-deed exists."
         if: "${{ steps.check_workflow_exists.outputs.exists == 'true' }}"
-      - name: "Echo if artifact does not exist"
+      - name: "Echo if artifact check_non_existing does not exist"
         run: echo "::notice::Artifact in-deed does not exist."
         if: "${{ steps.check_non_existing.outputs.exists == 'false' }}"
+
+      - name: "Fail if artifact check_workflow_exists does not exists"
+        run: exit 1
+        if: "${{ steps.check_workflow_exists.outputs.exists == 'false' }}"
+      - name: "Fail if artifact check_non_existing does exist"
+        run: exit 1
+        if: "${{ steps.check_non_existing.outputs.exists == 'true' }}"
+
+  run-v0-action:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Store Workflow
+        uses: actions/upload-artifact@v4
+        with:
+          name: "test-workflow"
+          path: ".github/workflows/test-workflow-with-action-upload-v3.yaml"
+          retention-days: 3
+      - uses: xSAVIKx/artifact-exists-action@v0
+        name: "Check artifact exists"
+        id: "check_workflow_exists"
+        with:
+          name: "test-workflow"
+      - uses: xSAVIKx/artifact-exists-action@v0
+        name: "Check artifact does not exist"
+        id: "check_non_existing"
+        with:
+          name: "non-existing-artifact"
+      - name: "Echo if artifact check_workflow_exists exists"
+        run: echo "::notice::Artifact in-deed exists."
+        if: "${{ steps.check_workflow_exists.outputs.exists == 'true' }}"
+      - name: "Echo if artifact check_non_existing does not exist"
+        run: echo "::notice::Artifact in-deed does not exist."
+        if: "${{ steps.check_non_existing.outputs.exists == 'false' }}"
+
+      - name: "Fail if artifact check_workflow_exists does not exists"
+        run: exit 1
+        if: "${{ steps.check_workflow_exists.outputs.exists == 'false' }}"
+      - name: "Fail if artifact check_non_existing does exist"
+        run: exit 1
+        if: "${{ steps.check_non_existing.outputs.exists == 'true' }}"
